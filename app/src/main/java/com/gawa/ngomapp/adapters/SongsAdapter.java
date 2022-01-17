@@ -42,6 +42,7 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         holder.name.setText(songs.get(position).getName());
+        holder.song_name = songs.get(position).getName();
         holder.isPlaying = songs.get(position).isPlaying();
         holder.data = songs.get(position).getData();
         holder.position = holder.getAdapterPosition();
@@ -57,7 +58,7 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
         TextView name;
         ImageView imgMore;
         boolean isPlaying;
-        String data;
+        String data, song_name;
         Integer position;
 
         public ViewHolder(@NonNull View itemView) {
@@ -81,7 +82,7 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
 
                 }
                 else{
-                    homeFragment.playSong(data);
+                    homeFragment.playSong(data, song_name);
                     Snackbar.make(view, "Playing", Snackbar.LENGTH_LONG).show();
                     isPlaying = true;
                 }

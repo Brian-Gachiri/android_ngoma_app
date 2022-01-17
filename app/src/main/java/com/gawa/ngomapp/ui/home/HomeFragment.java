@@ -19,6 +19,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -32,6 +33,7 @@ import com.gawa.ngomapp.R;
 import com.gawa.ngomapp.adapters.SongsAdapter;
 import com.gawa.ngomapp.databinding.FragmentHomeBinding;
 import com.gawa.ngomapp.models.Song;
+import com.gawa.ngomapp.utils.MessageManager;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.IOException;
@@ -46,6 +48,8 @@ public class HomeFragment extends Fragment {
     SongsAdapter songsAdapter;
     RecyclerView songsRecyclerView;
     TextInputEditText inputSearch;
+    MessageManager messageManager;
+    NotificationManagerCompat notificationManager;
 
     MediaPlayer mediaPlayer;
     View root;
@@ -89,6 +93,14 @@ public class HomeFragment extends Fragment {
         songsAdapter = new SongsAdapter(context, songs, this);
         songsRecyclerView.setAdapter(songsAdapter);
 
+        messageManager = new MessageManager(getActivity(), R.drawable.ic_music);
+        messageManager.createNotificationChannel();
+
+
+        notificationManager = NotificationManagerCompat.from(getActivity());
+
+
+
     }
 
     @Override
@@ -121,13 +133,15 @@ public class HomeFragment extends Fragment {
 
     }
 
-    public void playSong(String data){
+    public void playSong(String data, String name){
 
         try {
             mediaPlayer.reset();
             mediaPlayer.setDataSource(getActivity().getApplicationContext(), Uri.parse(data));
             mediaPlayer.prepare();
             mediaPlayer.start();
+
+            notificationManager.notify(234, messageManager.setupNotification("Playing", name).build());
         }
         catch (Exception e) {
             e.printStackTrace();
