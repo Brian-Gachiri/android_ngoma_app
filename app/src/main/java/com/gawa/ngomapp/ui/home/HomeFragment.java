@@ -5,6 +5,8 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -141,7 +143,13 @@ public class HomeFragment extends Fragment {
             mediaPlayer.prepare();
             mediaPlayer.start();
 
-            notificationManager.notify(234, messageManager.setupNotification("Playing", name).build());
+            Bitmap bitmap = BitmapFactory
+                    .decodeResource(getActivity().getResources()
+                            , R.drawable.brown);
+
+//            notificationManager.notify(234, messageManager.setupNotification("Playing", name).build());
+            notificationManager.notify(234, messageManager
+                    .setUpNotifcationWithImage("Screenshot captured", name, bitmap).build());
         }
         catch (Exception e) {
             e.printStackTrace();

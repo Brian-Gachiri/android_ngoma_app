@@ -1,5 +1,6 @@
 package com.gawa.ngomapp;
 
+import android.content.Intent;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gawa.ngomapp.models.Song;
+import com.gawa.ngomapp.services.MyService;
 import com.gawa.ngomapp.ui.home.HomeViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -166,12 +168,19 @@ public class DetailsFragment extends Fragment {
     public void playSong(){
 
         if (isPlaying){
-           stopSong();
+//           stopSong();
+            Intent intent = new Intent(getActivity(), MyService.class);
+            getActivity().stopService(intent);
         }
         else{
-            mediaPlayer.start();
+//            mediaPlayer.start();
             isPlaying = true;
             imgPlay.setImageResource(R.drawable.ic_pause);
+
+
+            Intent intent = new Intent(getActivity(), MyService.class);
+            intent.putExtra("DATA", song.getData());
+            getActivity().startService(intent);
 
         }
     }
