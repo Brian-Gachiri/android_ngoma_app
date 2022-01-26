@@ -70,22 +70,22 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
             imgMore.setOnClickListener(view -> {
                 //TODO: Create Bottom Dialog with Song Options
                 Snackbar.make(view, "Options: Coming Soon", Snackbar.LENGTH_LONG).show();
-                homeFragment.goToDetails(songs.get(getAdapterPosition()), position);
+                homeFragment.goToDetails(songs.get(getAdapterPosition()), getAdapterPosition());
             });
 
             itemView.setOnClickListener(view -> {
 
-                if (isPlaying){
-                    homeFragment.stopSong();
-                    Snackbar.make(view, "Stopped", Snackbar.LENGTH_LONG).show();
-                    isPlaying = false;
-
-                }
-                else{
-                    homeFragment.playSong(data, song_name);
-                    Snackbar.make(view, "Playing", Snackbar.LENGTH_LONG).show();
-                    isPlaying = true;
-                }
+//                if (isPlaying){
+//                    homeFragment.stopSong();
+//                    Snackbar.make(view, "Stopped", Snackbar.LENGTH_LONG).show();
+//                    isPlaying = false;
+//
+////                }
+////                else{
+                    homeFragment.playSong(data, song_name, getAdapterPosition());
+//                    Snackbar.make(view, "Playing", Snackbar.LENGTH_LONG).show();
+//                    isPlaying = true;
+//                }
 
             });
 

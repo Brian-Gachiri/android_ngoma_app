@@ -84,6 +84,8 @@ public class HomeViewModel extends AndroidViewModel {
         return selected;
     }
 
+    public LiveData<Integer> getIndex(){ return selectedPosition;}
+
 
 
     public LiveData<Song> getNext(){
